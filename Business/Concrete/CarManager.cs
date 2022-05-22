@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Result;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemoryDal;
 using Entities.Concrete;
@@ -16,33 +18,40 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (car.Description.Length>=2&&car.DailyPrice>0)
             {
                 _carDal.Add(car);
+                return new SuccesResult(Messages.ProductAdded);
             }else
-            throw new NotImplementedException("That is not able to add with these states");
+                return new ErrorResult(Messages.ProductNameInvalid);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetCarDetailDto();
+            return new SuccesDataResult<List<CarDetailDto>>(_carDal.GetCarDetailDto());
         }
 
-        public void Remove(Car car)
+        public IResult Remove(Car car)
         {
             _carDal.Delete(car);
+            return new SuccesResult(Messages.ProductUpdated);
+
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
+            return new SuccesResult(Messages.ProductUpdated);
+
         }
     }
 }
+
