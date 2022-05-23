@@ -13,7 +13,7 @@ namespace Business.Concrete
 {
     public class CarManager : ICarService
     {
-        ICarDal _carDal;
+        ICarDal _carDal;//Yıldız
         public CarManager(ICarDal carDal)
         {
             _carDal = carDal;
@@ -23,9 +23,9 @@ namespace Business.Concrete
             if (car.Description.Length>=2&&car.DailyPrice>0)
             {
                 _carDal.Add(car);
-                return new SuccesResult(Messages.ProductAdded);
+                return new SuccesResult(Messages.CarAdded);
             }else
-                return new ErrorResult(Messages.ProductNameInvalid);
+                return new ErrorResult(Messages.CarDeleted);
         }
 
         public IDataResult<List<Car>> GetAll()
@@ -42,14 +42,14 @@ namespace Business.Concrete
         public IResult Remove(Car car)
         {
             _carDal.Delete(car);
-            return new SuccesResult(Messages.ProductUpdated);
+            return new SuccesResult(Messages.CarDeleted);
 
         }
 
         public IResult Update(Car car)
         {
             _carDal.Update(car);
-            return new SuccesResult(Messages.ProductUpdated);
+            return new SuccesResult(Messages.CarUpdated);
 
         }
     }

@@ -11,7 +11,12 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-            TestDTO();
+            //TestDTO();
+            User user1 = new User { Id = 1, FirstName = "Kerem", LastName = "Bozkurt", Email = "blablamail", Password = "123" };
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(user1);
+           
+          
            
             
 
