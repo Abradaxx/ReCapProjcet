@@ -23,13 +23,6 @@ namespace ConsoleUI
 
         }
 
-        private static void TestDTO()
-        {
-            CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var item in carManager.GetCarDetails())
-            {
-                Console.WriteLine(item.CarName + "/" + item.ColorName + "/" + item.BrandName + "/" + item.DailyPrice);
-            }
-        }
+       
     }
 }

@@ -66,3 +66,4 @@ namespace Core.DataAcces.EntityFramework
         }
     }
 }
+//hata alıyorum customer a primary key lazım hepsini belirtmem lazım ama ödev bitti
