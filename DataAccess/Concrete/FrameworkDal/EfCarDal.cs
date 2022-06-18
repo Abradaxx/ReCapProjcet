@@ -13,18 +13,24 @@ namespace DataAccess.Concrete.FrameworkDal
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, ReCapProjectContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetailDto()
+        public List<CarDetailDto> GetCarDetails()
         {
-            using (ReCapProjectContext context=new ReCapProjectContext())
+            using (ReCapProjectContext context = new ReCapProjectContext())
             {
                 var result = from c in context.Cars
-                             join co in context.Colors
-                             on c.ColorId equals co.ColorId
                              join b in context.Brands
                              on c.BrandId equals b.BrandId
-                             select new CarDetailDto { CarName = c.Description, BrandName = b.BrandName, ColorName = co.ColorName, DailyPrice = c.DailyPrice };
+                             join co in context.Colors
+                             on c.ColorId equals co.ColorId
+                             select new CarDetailDto
+                             {
+                                
+                                 BrandName = b.BrandName,
+                                 ColorName = co.ColorName,
+                                 DailyPrice = c.DailyPrice,
+                                 Description = c.Description
+                             };
                 return result.ToList();
-                //list yapmamızın sebebi result kendi içinde dönen IDenum tarzı bir veri
             }
         }
     }
